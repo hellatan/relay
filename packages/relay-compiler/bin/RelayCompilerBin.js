@@ -63,6 +63,11 @@ const options = {
     type: 'boolean',
     default: false,
   },
+  logLevel: {
+    describe: 'Output logs based on level, currently only supports `error`',
+    type: 'string',
+    default: ''
+  },
   watchman: {
     describe: 'Use watchman when not in watch mode',
     type: 'boolean',

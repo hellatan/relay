@@ -23,10 +23,12 @@ function getMemoryUsageString() {
 class ConsoleReporter implements Reporter {
   _verbose: boolean;
   _quiet: boolean;
+  _logLevel: 'error' | string;
 
-  constructor(options: {verbose: boolean, quiet: boolean}) {
+  constructor(options: {verbose: boolean, quiet: boolean, logLevel: 'error' | string}) {
     this._verbose = options.verbose;
     this._quiet = options.quiet;
+    this._logLevel = options.logLevel;
   }
 
   reportMessage(message: string): void {
@@ -56,7 +58,7 @@ class ConsoleReporter implements Reporter {
   }
 
   reportError(caughtLocation: string, error: Error): void {
-    if (!this._quiet) {
+    if (!this._quiet || this._logLevel === 'error') {
       process.stdout.write(chalk.red('ERROR:\n' + error.message + '\n'));
       if (this._verbose) {
         const frames = error.stack.match(/^ {4}at .*$/gm);

@@ -49,6 +49,7 @@ export type Config = {|
   include: Array<string>,
   exclude: Array<string>,
   verbose: boolean,
+  logLevel?: 'error' | string,
   watchman: boolean,
   watch?: ?boolean,
   validate: boolean,
@@ -260,6 +261,7 @@ function getCodegenRunner(config: Config): CodegenRunner {
   const reporter = new ConsoleReporter({
     verbose: config.verbose,
     quiet: config.quiet,
+    logLevel: config.logLevel
   });
   const schema = getSchemaSource(config.schema);
   const languagePlugin = getLanguagePlugin(config.language);
